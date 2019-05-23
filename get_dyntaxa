@@ -1,0 +1,4 @@
+#!/bin/ash
+export TS=$(date '+%Y_%m_%d_%H_%M')
+wget --timeout=120 --no-check-certificate -O /data/dyntaxa/dyntaxa-dwca-$TS.zip "https://api.artdatabanken.se/taxonservice/v1/DarwinCore/DarwinCoreArchiveFile?Subscription-Key=4b068709e7f2427d9fc76bf42d8e2b57"
+echo "Dyntaxa dl at $TS triggered" > /proc/1/fd/1 2>/proc/1/fd/1
