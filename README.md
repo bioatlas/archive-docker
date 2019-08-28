@@ -1,2 +1,287 @@
-# archive-docker
 Object storage
+================
+
+This document describes work made related to deliverable D3.10 in Module
+3 of the Swedish Biodiversity Atlas (BAS).
+
+Specifically it aims at investigating solutions and requirements for
+object storage that can be utilized within a biodiversity data
+infrastructure in order to support management of primarily images but
+also other binary assets (sounds, documents etc) with associated
+metadata.
+
+Consider multimedia objects that can be used when describing a species
+such as [Ursus Arctos - the
+bear](https://dina-web.net/naturalist/species/263f8ef2-e085-408f-90b1-e6e4decfc4cb?locale=sv_SE&isProduction=true&isLocal=false).
+Such binary resources are also linked to other biodiversity data and
+require suitable object storage that can be referenced externally from
+other data sets and applications.
+
+Standardized darwin core archives can encode datasets which refer to
+such resources using terms such as “associatedMedia” which contains
+crawlable URL:s pointing to the multimedia objects.
+
+# High level requirements for object storage
+
+Some widely known commercial solutions for object storage include for
+example dropbox and google drive which allows users to share “objects”
+such as images or documents. A drawback with these solutions are that
+they’re not GDPR-friendly and are hosted by a commercial third party
+which owns the data, indexes these resources and use them for targeted
+ads and other unknown purposes.
+
+A number of custom national applications have been built within the
+biodiversity data community to address some application specific issues
+but these use tailored home-grown solutions to address these application
+needs specifically, rather than use more widely deployed components,
+techniques and architectures which could provide benefits from tapping
+into an active upstream community, receiving regular updates and
+bugfixes and depending on a more widely used and trusted codebase.
+
+Within the biodiversity software community in Sweden, solutions such as
+“Morphbank” and “Specify Software” are deployed in production that
+currently include functionality for managing images related to natural
+history collections data. A drawback with some of those solutions are
+that they’re either not actively developed and maintained or that they
+provide a limited feature set and/or lack som functionality that would
+be required for use in more up-to-date community-maintained software
+stacks such as those deployed in the Living Atlas community and within
+GBIF.
+
+Merging existing solutions - which are often implemented as often
+monolithic components using different code bases and programming
+languages - poses a system integration challenge and would involve
+porting of code that hasn’t been actively maintained for a while.
+
+Future efforts should avoid dependencies on components that are
+maintained by small user communities with uncertain funding. Therefore
+reusing those existing solutions for handling images is not recommended.
+
+Within the larger international biodiversity software community outside
+of Sweden, solutions involving modern software stacks and components
+such as [minio](https://min.io/) are progressing.
+
+# Some options and alternatives
+
+Several FOSS options are available that can be utilized that provide
+solid functionality for working with images:
+
+  - Wiki-based software stacks
+
+  - Components from Minio - an S3 compatible modern object storage
+    software stack
+
+  - Making use of the NextCloud platfrom
+
+These are container-friendy solutions ie run under Docker and have
+distributions available at <https://hub.docker.com>.
+
+The options above are not mutually exclusive but can be combined based
+on stakeholders and requirements from different use cases.
+
+We will look closer at some of these options now.
+
+# The wiki way
+
+An interesting non-commercial option for “object storage” related to
+images springs from the large Wikipedia community. It provides,
+maintains and updates widely available software stacks for managing
+images that can be used at no cost and specifically works with the GLAM
+community (Governments, Libraries, Art institutions and Museums) to
+address for example needs related to Natural History collections.
+
+Both [hosted
+services](https://wikimediafoundation.org/our-work/commons/) and
+[portable
+components](https://addshore.com/2017/12/wikibase-docker-images/) are
+available and the hosted solutions run by the [Wikimedia
+Foundation](https://wikimediafoundation.org/) are well-suited for
+Creative Commons licensed content.
+
+Some very relevant case studies for mobilizing collections data
+(including images) using the Wiki technology stacks were recently
+presented in this years Wikimania Conference in Stockholm, involving for
+example data from collections from the Nordic Museum in Stockholm and
+from The Smithsonian and other museums and public sector institutions.
+
+  - [Three pilot projects involving museum collections data mobilization
+    / Institutional ingestion of Wikimedia Data: Trust, Tooling and
+    Expectations](https://wikimania.wikimedia.org/wiki/2019:GLAM/Institutional_ingestion_of_Wikimedia_Data:_Trust,_Tooling_and_Expectations)
+  - [The Smithsonian’s presentation on sharing collections data at scale
+    with
+    Wikidata](https://wikimania.wikimedia.org/wiki/2019:GLAM/The_Smithsonian:_A_Partnership_to_Improve_Gender_Representation_Online)
+  - [Metropolitan Museum of Art in New York embarked on an ambitious
+    plan to work with Wikimedia content and mobilization of data from
+    two
+    collections](https://wikimania.wikimedia.org/wiki/2019:GLAM/The_Met_Museum_and_New_Frontiers_in_Wikidata_engagement)
+  - [“Why do museums decide to open up their
+    collections”](https://wikimania.wikimedia.org/wiki/2019:GLAM/Why_do_museums_decide_to_open_up_their_collections%3F_Presenting_research_results_on_shared_open_heritage_%26_GLAMs_business_models)
+  - [“The process of upload, disseminate and report a GLAM and how
+    wikidatifying it improves it: a Brazilian
+    experience”](https://wikimania.wikimedia.org/wiki/2019:GLAM/The_process_of_upload,_disseminate_and_report_a_GLAM_and_how_wikidatifying_it_improves_it:_a_Brazilian_experience)
+
+The Wikimania conference itself, where these presentations were given,
+made heavy use of images and movie “object storage” functionality.
+
+Some relevant examples:
+
+  - [Open Linked Data for Public Sector Data
+    Ecosystems](https://commons.wikimedia.org/wiki/File:Rethinking_public_sector_data_ecosystems.webm)
+  - [Structured Data on Wikimedia
+    Commons](https://commons.wikimedia.org/wiki/File:Structured_Data_on_Wikimedia_Commons_for_GLAM-Wiki_video.webm)
+
+### Open Data functionality
+
+The wiki-stacks include good support for working with Open Linked Data
+and Expressive Natural History Collections data.
+
+If data is mobilized using Wiki-stacks, for example into a [portable
+dockerized MediaWiki
+module](https://hub.docker.com/r/wikibase/wikibase), data flows can be
+set up to utilize [existing tools to provide exports in the DCAT-AP
+format](https://github.com/Wikimedia-Sverige/DCAT).
+
+Data [can be further processed and queried using modern graph search
+tools such as neo4j](https://github.com/findie/wikidata-neo4j-importer)
+as demonstrated in this [Europeana case
+study](https://neo4j.com/case-studies/europeana) which provides
+real-time graph search for millions of artworks.
+
+This can be a suitable approach when it comes to rich natural history
+collections data, which is expressive and not easily captured in static
+database schemas that are traditionally used relational databases.
+Modelling can happend incrementally and adapted to the purpose of the
+investigation being made using graph database approaches instead, as
+demonstrated in the [Europeana use
+case](https://neo4j.com/case-studies/europeana).
+
+# The Minio Way
+
+Some questions asked when investigating a solution for “object storage”
+that tends to come up are:
+
+  - Is there a suitable UI provided with bindings from different
+    programming languages, clients, SDKs and docker images?
+  - Is there a REST API for storage, search, retrieval?
+  - Can clients implement customized UIs if necessary?
+  - Does it provide support for images, pdf, dwca, txt, csv, video,
+    audio, other binary files, ABS documents?
+  - Does it support adding new fields to metadata such as licenses - and
+    can it use EML like dwca?
+  - How does it integrate with other systems components - for example
+    can authentication and authorization be provided through Keycloak?
+
+The “Minio” component ticks these boxes with “yes”.
+
+Several use cases are adressed directly:
+
+  - Add single object, from API and using drag’n’drop in UI
+  - Add several objects, from API, CLI and custom UI
+  - Add “denormalized data” - such as copyright holder name
+  - Add “normalized data” - such as identifiers in other systems
+  - Batch additions of 100+ objects
+  - For images, add exif and date when file was added
+  - Backups, mirroring, archiving use cases
+
+Community maintained solutions adress more image specific use cases:
+
+  - Zooming, rotating, tiling images
+  - Thumbnails
+
+# The NextCloud way
+
+NextCloud claims that they offer components offer the industry-leading,
+on-premises content collaboration platform, combining convenience and
+ease of use of consumer-grade solutions like Dropbox and Google Drive
+with the security, privacy and control that on-premise deployment needs.
+
+It is dockerized and [an instance of NextCloud is running
+here](https://nextcloud.infrabas.se) to support the part of the data
+mobilization workflow that involves getting datasets uploaded from
+partners within the BAS infrastructure.
+
+# Example solution
+
+This repository contains a number of files that implement an example
+solution.
+
+Please look at the `docker-compose.yml` file for the services and data
+that make up the system composition.
+
+This composition supports:
+
+  - scheduled harvesting of Darwin Core Archive files (binary files
+    compressed with zip and containing CSV data and XML metadata files)
+  - uploads and object management through the minio UI (including
+    drag’n’drop, delete objects etc)
+  - uploads using the official minio client (mc) which is capable of
+    uploading big files (5G+) where file size goes beyond traditional
+    web browser based file size upload limitations
+  - a file mirror providing http access for selected objects
+
+The file mirror is accessible from here:
+<https://archive.infrabas.se/dyntaxa>
+
+The web UI for Minio is accessible from here:
+<https://minio.infrabas.se>
+
+The minimal harvesting service has been implemented here and is
+scheduled to run every hour:
+
+  - [harvesting
+    code](https://github.com/bioatlas/archive-docker/blob/master/get_dyntaxa)
+  - [job
+    scheduling](https://github.com/bioatlas/archive-docker/blob/master/docker-compose.yml#L88-L93)
+
+## Extensions
+
+This basic construct can be extended with additional services and
+components (similar to the scheduled harvesting service above) which
+works against the object storage to check out, refine and check assets
+back in. This can be used to add metadata for objects.
+
+For example, for a specific object, say an image of a bear, that resides
+in a specific bucket, an \[object\_name-metadata\] file can be created
+with like so:
+
+    # python pseudo code
+    content_type='application/octet-stream'
+    metadata = {'x-amz-meta-testing': 'value'}
+    client.put_object(bucket_name,
+      object_name + '-metadata',
+      MB_11_reader,
+      MB_11,
+      content_type,
+      metadata)
+
+EXIF tags if bundled inside the image will be available without the need
+to use this mechanism, but not readily and easily available to external
+applications before the whole file has been retrieved and the metadata
+has been extracted.
+
+Separating out metadata like above can be useful for use cases where
+preferably some standardized set of metadata would be required to be
+attached to each object.Other applications (for example providing search
+functionality) can then crawl the metadata resources, index the custom
+metadata and provide search services based on just the metadata crawl
+across the object store.
+
+APIs can also be implemented that power specialized search functionality
+that can then be integrated for example into a collections management
+system.
+
+A list of specific requirements for the use case with Natural History
+Collections that also contain molecular data can be found here:
+
+<https://github.com/DINA-Web/object-store-specs>
+
+Thanks goes to the Biological Informatics Centre of Excellence,
+Information Systems Branch at Agriculture and Agri-Food Canada the work
+they’re doing in this area.
+
+## Big data support
+
+Please find further information on how this construct can support big
+data volumes and queries:
+
+<https://min.io/resources/docs/Spark-S3Select.pdf>
