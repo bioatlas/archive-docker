@@ -130,7 +130,24 @@ Some relevant examples:
   - [Structured Data on Wikimedia
     Commons](https://commons.wikimedia.org/wiki/File:Structured_Data_on_Wikimedia_Commons_for_GLAM-Wiki_video.webm)
 
-### Open Data functionality
+### Structured Data with the wiki stack
+
+With [Structured
+Data](https://commons.wikimedia.org/wiki/Commons:Structured_data) on
+Commons, Wikimedia Commons is expanded with features that benefit
+cultural heritage data: structured, machine-readable and multilingual
+metadata (Linked Open Data), structured copyright and attribution
+information, and rich APIs. [Several initiatives and
+projects](https://commons.wikimedia.org/wiki/Commons:Structured_data/GLAM/Projects)
+are directly working with museums currently, including [institutions in
+Sweden](https://meta.wikimedia.org/wiki/Wikimedia_Commons_Data_Roundtripping).
+
+Wikimedia Sweden can be contacted in Sweden for assistance. They provide
+supports case studies, best practices and guides for GLAMs to assist
+with digitizing collections data and plans targeted campaigns for
+translations into other languages.
+
+### Linked Open Data functionality
 
 The wiki-stacks include good support for working with Open Linked Data
 and Expressive Natural History Collections data.
@@ -155,7 +172,41 @@ investigation being made using graph database approaches instead, as
 demonstrated in the [Europeana use
 case](https://neo4j.com/case-studies/europeana).
 
+### Disaster recovery and data mobilization using wiki stacks
+
+The worst case scenario for Museum collections data happened at the
+National Museum in Brazil, Sep 2 of 2018. The museum caught fire due to
+a short circuit and burned for six hours. The museum was at that time
+suffering from economic problem as 95% of the budget had not been paid
+and was not available. The collections included 20 million objects and
+between 8 and 25 thousand of those were on display. In the fire close to
+93 % of the objects were destroyed, including the [Luzia
+skull](https://en.wikipedia.org/wiki/Luzia_Woman) which was more than
+ten thousand years old and was the oldest human skull found in this area
+of the world. On-premise data and servers were destroyed. Before the
+fire, some images of the objects were available on the Wikipedia Commons
+- a total of 471 images and 8 articles. That was basically the backup.
+
+Disaster recovery of data with the wiki stack was initiated by reaching
+out to the general public. After the fire a [campaign was started on
+Wikipedia](https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:Projetos/Museu_Nacional)
+to invite also non-wiki people to upload their images and 2000 images
+were uploaded in three days. The campaign made use of wikipedia,
+wikidata, commons and wikisource.
+
+Data mobilization through crowd sourcing is also available through a new
+and more specific tool, the [ISA tool](https://tools.wmflabs.org/isa/),
+which is a microcontribution tool with the [manual
+available](https://commons.wikimedia.org/wiki/Commons:ISA_Tool/Manual)
+which describes its functionality. It was originally was developed to be
+used by Wikimedia Africa in the “Wiki loves Africa” project. An
+application, “the ISA game”, has been built to encourage crowd sourcing
+contributions.
+
 # The Minio Way
+
+Minio is suitable also for non-open data and can be integrated into
+existing infrastructure software component stacks.
 
 Some questions asked when investigating a solution for “object storage”
 that tends to come up are:
@@ -282,6 +333,9 @@ they’re doing in this area.
 ## Big data support
 
 Please find further information on how this construct can support big
-data volumes and queries:
+data volumes and
+queries:
 
 <https://min.io/resources/docs/Spark-S3Select.pdf>
+
+<https://blog.minio.io/running-peta-scale-spark-jobs-on-object-storage-using-s3-select-df7177ae518>
