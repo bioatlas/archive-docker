@@ -17,7 +17,7 @@ Standardized darwin core archives can encode datasets which refer to such resour
 
 # High level requirements for object storage
 
-Some widely known commercial solutions for object storage include for example dropbox and google drive which allows users to share "objects" such as images or documents. A drawback with these solutions are that they're not GDPR-friendly and are hosted by a commercial third party which owns the data, indexes these resources and use them for targeted ads and other unknown purposes.
+Some widely known commercial solutions for object storage include for example Dropbox and Google Drive which allows users to share "objects" such as images or documents. A drawback with these solutions are that they're not GDPR-friendly and are hosted by a commercial third party which owns the data, indexes these resources and use them for targeted ads and other unknown purposes.
 
 A number of custom national applications have been built within the biodiversity data community to address some application specific issues but these use tailored home-grown solutions to address these application needs specifically, rather than use more widely deployed components, techniques and architectures which could provide benefits from tapping into an active upstream community, receiving regular updates and bugfixes and depending on a more widely used and trusted codebase.  
 
@@ -25,7 +25,7 @@ Within the biodiversity software community in Sweden, solutions such as "Morphba
 
 Merging existing solutions - which are often implemented as often monolithic components using different code bases and programming languages - poses a system integration challenge and would involve porting of code that hasn't been actively maintained for a while. 
 
-Future efforts should avoid dependencies on components that are maintained by small user communities with uncertain funding. Therefore reusing those existing solutions for handling images is not recommended.
+Future efforts could avoid dependencies on components that are maintained by small user communities with uncertain funding. Therefore reusing those older existing solutions for handling images is not recommended.
 
 Within the larger international biodiversity software community outside of Sweden, solutions involving modern software stacks and components such as [minio](https://min.io/) are progressing.
 
@@ -89,7 +89,7 @@ The worst case scenario for Museum collections data happened at the National Mus
 
 Disaster recovery of data with the wiki stack was initiated by reaching out to the general public. After the fire a [campaign was started on Wikipedia](https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:Projetos/Museu_Nacional) to invite also non-wiki people to upload their images and 2000 images were uploaded in three days. The campaign made use of wikipedia, wikidata, commons and wikisource.
 
-Data mobilization through crowd sourcing is also available through a new and more specific tool, the [ISA tool](https://tools.wmflabs.org/isa/), which is a microcontribution tool with the [manual available](https://commons.wikimedia.org/wiki/Commons:ISA_Tool/Manual) which describes its functionality. It was originally was developed to be used by Wikimedia Africa in the "Wiki loves Africa" project. An application, "the ISA game", has been built to encourage crowd sourcing contributions.
+Data mobilization through crowd sourcing is also available through a new and more specific tool, the [ISA tool](https://tools.wmflabs.org/isa/), which is a microcontribution tool with the [manual available](https://commons.wikimedia.org/wiki/Commons:ISA_Tool/Manual) which describes its functionality. It was originally was developed to be used by Wikimedia Africa in the "Wiki loves Africa" project. An application, ["the ISA game"](http://bit.ly/PlayISA), has been built to encourage crowd sourcing contributions. So called ["campaigns" can be created](http://bit.ly/CreateISA) such as the one arranged after the Brazilian fire, but geared towards mobilizing multimedia content.
 
 # The Minio Way
 
@@ -127,9 +127,11 @@ NextCloud claims that they offer components offer the industry-leading, on-premi
 
 It is dockerized and [an instance of NextCloud is running here](https://nextcloud.infrabas.se) to support the part of the data mobilization workflow that involves getting datasets uploaded from partners within the BAS infrastructure.
 
-# Example solution
+# Solution
 
-This repository contains a number of files that implement an example solution.
+This repository contains a number of files that implement an solution for object storage. 
+
+This solution was deployed on the SUNET Cloud at https://archive.infrabas.se just before the summer of 2019.
 
 Please look at the `docker-compose.yml` file for the services and data that make up the system composition.
 

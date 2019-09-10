@@ -24,7 +24,7 @@ crawlable URL:s pointing to the multimedia objects.
 # High level requirements for object storage
 
 Some widely known commercial solutions for object storage include for
-example dropbox and google drive which allows users to share “objects”
+example Dropbox and Google Drive which allows users to share “objects”
 such as images or documents. A drawback with these solutions are that
 they’re not GDPR-friendly and are hosted by a commercial third party
 which owns the data, indexes these resources and use them for targeted
@@ -53,9 +53,10 @@ monolithic components using different code bases and programming
 languages - poses a system integration challenge and would involve
 porting of code that hasn’t been actively maintained for a while.
 
-Future efforts should avoid dependencies on components that are
+Future efforts could avoid dependencies on components that are
 maintained by small user communities with uncertain funding. Therefore
-reusing those existing solutions for handling images is not recommended.
+reusing those older existing solutions for handling images is not
+recommended.
 
 Within the larger international biodiversity software community outside
 of Sweden, solutions involving modern software stacks and components
@@ -200,8 +201,10 @@ which is a microcontribution tool with the [manual
 available](https://commons.wikimedia.org/wiki/Commons:ISA_Tool/Manual)
 which describes its functionality. It was originally was developed to be
 used by Wikimedia Africa in the “Wiki loves Africa” project. An
-application, “the ISA game”, has been built to encourage crowd sourcing
-contributions.
+application, [“the ISA game”](http://bit.ly/PlayISA), has been built to
+encourage crowd sourcing contributions. So called [“campaigns” can be
+created](http://bit.ly/CreateISA) such as the one arranged after the
+Brazilian fire, but geared towards mobilizing multimedia content.
 
 # The Minio Way
 
@@ -251,10 +254,13 @@ here](https://nextcloud.infrabas.se) to support the part of the data
 mobilization workflow that involves getting datasets uploaded from
 partners within the BAS infrastructure.
 
-# Example solution
+# Solution
 
-This repository contains a number of files that implement an example
-solution.
+This repository contains a number of files that implement an solution
+for object storage.
+
+This solution was deployed on the SUNET Cloud at
+<https://archive.infrabas.se> just before the summer of 2019.
 
 Please look at the `docker-compose.yml` file for the services and data
 that make up the system composition.
